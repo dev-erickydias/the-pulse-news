@@ -54,19 +54,34 @@ export function decodeArticleId(id: string): string {
   return Buffer.from(id, "base64url").toString("utf-8");
 }
 
-// Fallback mock data for when API key is not set
+// Mock images from picsum for fallback
+const MOCK_IMAGES = [
+  "https://picsum.photos/seed/news1/800/500",
+  "https://picsum.photos/seed/news2/800/500",
+  "https://picsum.photos/seed/news3/800/500",
+  "https://picsum.photos/seed/news4/800/500",
+  "https://picsum.photos/seed/news5/800/500",
+  "https://picsum.photos/seed/news6/800/500",
+  "https://picsum.photos/seed/news7/800/500",
+  "https://picsum.photos/seed/news8/800/500",
+  "https://picsum.photos/seed/news9/800/500",
+  "https://picsum.photos/seed/news10/800/500",
+  "https://picsum.photos/seed/news11/800/500",
+  "https://picsum.photos/seed/news12/800/500",
+];
+
 export function getMockArticles(count: number = 12): Article[] {
   const mockArticles: Article[] = Array.from({ length: count }, (_, i) => ({
     source: {
       id: null,
-      name: ["Reuters", "BBC News", "The Guardian", "Bloomberg", "TechCrunch", "ESPN"][i % 6],
+      name: ["Reuters", "BBC News", "The Guardian", "Bloomberg", "TechCrunch", "The Washington Post"][i % 6],
     },
     author: ["John Smith", "Maria Garcia", "Alex Chen", "Sarah Johnson", "David Kim", "Emma Wilson"][i % 6],
     title: [
       "Global Markets Rally as Economic Data Exceeds Expectations",
       "Breakthrough in Quantum Computing Could Transform Industry",
       "Climate Summit: World Leaders Agree on New Emissions Targets",
-      "AI Revolution: How Machine Learning is Reshaping Healthcare",
+      "AI Revolution: How Machine Learning Is Reshaping Healthcare",
       "Space Exploration: New Mission to Mars Announces Launch Date",
       "Olympic Committee Reveals Host City for 2036 Games",
       "Tech Giants Report Record Quarterly Earnings Amid AI Boom",
@@ -91,9 +106,9 @@ export function getMockArticles(count: number = 12): Article[] {
       "Electric vehicle adoption continues to accelerate as automakers introduce compelling new models at competitive prices.",
     ][i % 12],
     url: `https://example.com/article-${i + 1}`,
-    urlToImage: null,
+    urlToImage: MOCK_IMAGES[i % MOCK_IMAGES.length],
     publishedAt: new Date(Date.now() - i * 3600000).toISOString(),
-    content: "Full article content would appear here. This is placeholder content for the mock data used when no API key is configured.",
+    content: "Full article content would appear here. This is placeholder content for the mock data used when no API key is configured. The story continues with detailed analysis and expert commentary on the implications of these developments for the broader market and global economy.",
   }));
   return mockArticles;
 }

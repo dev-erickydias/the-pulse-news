@@ -20,17 +20,19 @@ export default async function HomePage() {
   }
 
   const heroArticle = articles[0];
-  const secondaryArticles = articles.slice(1, 4);
-  const gridArticles = articles.slice(4, 10);
-  const trendingArticles = articles.slice(10, 16);
-  const latestArticles = articles.slice(16);
+  const secondaryArticles = articles.slice(1, 8);
+  const gridArticles = articles.slice(8, 14);
+  const trendingArticles = articles.slice(14, 18);
+  const latestArticles = articles.slice(18);
 
   return (
-    <>
+    <div className="paper-texture">
+      {/* Hero — newspaper above-the-fold */}
       <HeroArticle article={heroArticle} secondary={secondaryArticles} />
 
-      <section className="max-w-7xl mx-auto px-4 py-6">
-        <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
+      {/* Category bar */}
+      <section className="max-w-[1200px] mx-auto px-4 py-4">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2">
           {CATEGORIES.map((cat) => (
             <CategoryPill
               key={cat.slug}
@@ -41,22 +43,28 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-8">
+      {/* Feature grid — newspaper columns */}
+      <section className="max-w-[1200px] mx-auto px-4 py-6">
         <SectionHeader
           title="Featured"
-          subtitle="Today's most important stories"
+          subtitle="Today&apos;s most important stories"
           accent
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
           {gridArticles.map((article, i) => (
-            <ArticleCard key={i} article={article} index={i} />
+            <div key={i} className={i > 0 ? "lg:border-l lg:border-rule-light lg:pl-8" : ""}>
+              <ArticleCard article={article} index={i} />
+            </div>
           ))}
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-          <div className="lg:col-span-3">
+      {/* Trending + Latest — two column newspaper layout */}
+      <section className="max-w-[1200px] mx-auto px-4 py-8">
+        <div className="rule-thick mb-6" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
+          {/* Trending */}
+          <div className="lg:col-span-8 lg:pr-8">
             <SectionHeader title="Trending" accent />
             <div className="space-y-0">
               {trendingArticles.map((article, i) => (
@@ -70,9 +78,10 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="lg:col-span-2">
-            <SectionHeader title="Latest News" accent />
-            <div className="space-y-5">
+          {/* Latest sidebar */}
+          <div className="lg:col-span-4 lg:border-l lg:border-rule-light lg:pl-8 mt-8 lg:mt-0">
+            <SectionHeader title="Bulletin" accent />
+            <div className="space-y-0">
               {latestArticles.map((article, i) => (
                 <ArticleCard
                   key={i}
@@ -86,35 +95,29 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-12">
-        <div className="relative rounded-3xl overflow-hidden bg-navy p-10 md:p-16 text-center">
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
-              backgroundImage: "radial-gradient(circle at 25% 25%, white 1px, transparent 1px)",
-              backgroundSize: "30px 30px",
-            }} />
-          </div>
-          <div className="relative z-10">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-4">
-              Stay in the know
-            </h2>
-            <p className="text-white/50 mb-8 max-w-md mx-auto">
-              Get the top stories delivered straight to your inbox. No spam,
-              just relevant content.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="you@email.com"
-                className="flex-1 px-5 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder:text-white/30 text-sm focus:outline-none focus:border-white/40 transition-colors"
-              />
-              <button className="px-8 py-3 rounded-full bg-accent hover:bg-accent-dark text-white text-sm font-medium tracking-wide transition-all duration-300 hover:scale-105">
-                Subscribe
-              </button>
-            </div>
+      {/* Newsletter — newspaper classified ad style */}
+      <section className="max-w-[1200px] mx-auto px-4 py-8">
+        <div className="border-2 border-ink p-8 md:p-12 text-center bg-cream/50">
+          <h2 className="font-heading text-2xl md:text-3xl font-black tracking-tight mb-2 uppercase">
+            Subscribe to Our Edition
+          </h2>
+          <div className="w-16 h-[2px] bg-ink mx-auto mb-4" />
+          <p className="font-serif text-[13px] text-muted mb-6 max-w-md mx-auto leading-relaxed">
+            Receive the morning&apos;s top headlines delivered directly to your inbox.
+            Quality journalism, every day.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="your@email.com"
+              className="flex-1 px-4 py-2.5 border border-ink/30 bg-paper text-sm font-serif placeholder:text-muted/40 focus:outline-none focus:border-ink transition-colors"
+            />
+            <button className="px-6 py-2.5 bg-ink text-paper text-[11px] font-serif font-bold tracking-[0.15em] uppercase hover:bg-accent transition-colors duration-200">
+              Subscribe
+            </button>
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

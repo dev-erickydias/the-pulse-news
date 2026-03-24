@@ -1,7 +1,6 @@
 import { getTopHeadlines, getMockArticles } from "@/lib/api";
 import { Category, CATEGORIES } from "@/types/news";
 import { ArticleCard } from "@/components/ArticleCard";
-import { SectionHeader } from "@/components/SectionHeader";
 import { CategoryPill } from "@/components/CategoryPill";
 
 export const revalidate = 600;
@@ -27,21 +26,25 @@ export default async function CategoryPage({ params }: PageProps) {
   }
 
   return (
-    <div className="animate-fade-in">
-      <section className="max-w-7xl mx-auto px-4 pt-10 pb-6">
-        <div className="text-center mb-8">
-          <span className="inline-block bg-accent/10 text-accent text-[11px] tracking-[0.15em] uppercase font-bold px-3 py-1 rounded-full mb-4">
-            Category
-          </span>
-          <h1 className="font-heading text-4xl md:text-6xl font-black tracking-tight">
-            {categoryName}
-          </h1>
-          <p className="text-muted mt-3">
-            {articles.length} articles found
+    <div className="animate-fade-in paper-texture">
+      {/* Header */}
+      <section className="max-w-[1200px] mx-auto px-4 pt-8 pb-4">
+        <div className="rule-thick mb-4" />
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-4">
+          <div>
+            <span className="text-[10px] tracking-[0.15em] uppercase text-accent font-serif font-bold">
+              Section
+            </span>
+            <h1 className="font-heading text-4xl md:text-5xl font-black tracking-tight uppercase">
+              {categoryName}
+            </h1>
+          </div>
+          <p className="text-[12px] text-muted font-serif">
+            {articles.length} articles
           </p>
         </div>
 
-        <div className="flex items-center justify-center gap-3 flex-wrap">
+        <div className="flex items-center gap-2 flex-wrap mb-2">
           {CATEGORIES.map((cat) => (
             <CategoryPill
               key={cat.slug}
@@ -51,14 +54,16 @@ export default async function CategoryPage({ params }: PageProps) {
             />
           ))}
         </div>
+        <div className="rule-thin mt-4" />
       </section>
 
-      <div className="editorial-divider max-w-7xl mx-auto" />
-
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Grid */}
+      <section className="max-w-[1200px] mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
           {articles.map((article, i) => (
-            <ArticleCard key={i} article={article} index={i} />
+            <div key={i} className={`${(i % 3 !== 0) ? "lg:border-l lg:border-rule-light lg:pl-8" : ""}`}>
+              <ArticleCard article={article} index={i} />
+            </div>
           ))}
         </div>
       </section>

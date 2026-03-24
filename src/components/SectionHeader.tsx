@@ -10,17 +10,17 @@ export function SectionHeader({
   accent = false,
 }: SectionHeaderProps) {
   return (
-    <div className="mb-8">
-      <div className="flex items-center gap-4 mb-3">
-        {accent && <div className="w-8 h-1 bg-accent rounded-full" />}
-        <h2 className="font-heading text-2xl md:text-3xl font-bold tracking-tight">
+    <div className="mb-6">
+      {accent && <div className="rule-thick mb-0" />}
+      <div className={`flex items-center gap-3 ${accent ? "pt-2" : ""}`}>
+        <h2 className="font-heading text-2xl md:text-3xl font-black tracking-tight uppercase">
           {title}
         </h2>
       </div>
       {subtitle && (
-        <p className="text-sm text-muted tracking-wide pl-12">{subtitle}</p>
+        <p className="text-[12px] text-muted tracking-wide font-serif mt-1">{subtitle}</p>
       )}
-      <div className="editorial-divider mt-4" />
+      <div className="rule-thin mt-3" />
     </div>
   );
 }

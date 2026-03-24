@@ -1,7 +1,6 @@
 import { searchNews, getMockArticles } from "@/lib/api";
 import { Article } from "@/types/news";
 import { ArticleCard } from "@/components/ArticleCard";
-import { SectionHeader } from "@/components/SectionHeader";
 import Link from "next/link";
 
 interface PageProps {
@@ -19,75 +18,61 @@ export default async function SearchPage({ searchParams }: PageProps) {
     } catch {
       articles = getMockArticles(12);
     }
-  } else {
-    articles = [];
   }
 
   return (
-    <div className="animate-fade-in">
-      <section className="max-w-7xl mx-auto px-4 pt-10 pb-8">
-        <div className="text-center">
-          <span className="inline-block bg-ink/5 text-muted text-[11px] tracking-[0.15em] uppercase font-bold px-3 py-1 rounded-full mb-4">
-            Search Results
-          </span>
-          {query ? (
-            <>
-              <h1 className="font-heading text-4xl md:text-5xl font-black tracking-tight">
-                &ldquo;{query}&rdquo;
-              </h1>
-              <p className="text-muted mt-3">
-                {articles.length} results found
-              </p>
-            </>
-          ) : (
-            <>
-              <h1 className="font-heading text-4xl md:text-5xl font-black tracking-tight">
-                Search News
-              </h1>
-              <p className="text-muted mt-3">
-                Use the search bar above to find news
-              </p>
-            </>
-          )}
-        </div>
+    <div className="animate-fade-in paper-texture">
+      {/* Header */}
+      <section className="max-w-[1200px] mx-auto px-4 pt-8 pb-4">
+        <div className="rule-thick mb-4" />
+        {query ? (
+          <>
+            <span className="text-[10px] tracking-[0.15em] uppercase text-muted font-serif font-bold">
+              Search Results
+            </span>
+            <h1 className="font-heading text-3xl md:text-5xl font-black tracking-tight mt-1">
+              &ldquo;{query}&rdquo;
+            </h1>
+            <p className="text-[12px] text-muted font-serif mt-2">
+              {articles.length} results found
+            </p>
+          </>
+        ) : (
+          <>
+            <h1 className="font-heading text-3xl md:text-5xl font-black tracking-tight uppercase">
+              Search
+            </h1>
+            <p className="text-[12px] text-muted font-serif mt-2">
+              Use the search bar above to find news
+            </p>
+          </>
+        )}
+        <div className="rule-thin mt-4" />
       </section>
 
-      <div className="editorial-divider max-w-7xl mx-auto" />
-
-      <section className="max-w-7xl mx-auto px-4 py-10">
+      {/* Results */}
+      <section className="max-w-[1200px] mx-auto px-4 py-6">
         {articles.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
             {articles.map((article, i) => (
-              <ArticleCard key={i} article={article} index={i} />
+              <div key={i} className={`${(i % 3 !== 0) ? "lg:border-l lg:border-rule-light lg:pl-8" : ""}`}>
+                <ArticleCard article={article} index={i} />
+              </div>
             ))}
           </div>
         ) : query ? (
           <div className="text-center py-20">
-            <div className="text-6xl mb-6 opacity-20">
-              <svg
-                width="64"
-                height="64"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1"
-                className="mx-auto"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.35-4.35" />
-              </svg>
-            </div>
-            <h2 className="font-heading text-2xl font-bold mb-2">
+            <h2 className="font-heading text-2xl font-black mb-2">
               No results found
             </h2>
-            <p className="text-muted mb-6">
+            <p className="text-muted font-serif text-sm mb-6">
               Try searching for different terms
             </p>
             <Link
               href="/"
-              className="inline-block px-6 py-3 rounded-full bg-ink text-paper text-sm font-medium hover:bg-ink/80 transition-colors"
+              className="inline-block px-6 py-2.5 bg-ink text-paper text-[11px] font-serif font-bold tracking-[0.12em] uppercase hover:bg-accent transition-colors"
             >
-              Back to Home
+              Back to Front Page
             </Link>
           </div>
         ) : null}

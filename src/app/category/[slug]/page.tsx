@@ -18,11 +18,11 @@ export default async function CategoryPage({ params }: PageProps) {
   try {
     articles = await getTopHeadlines(slug as Category, 18);
   } catch {
-    articles = getMockArticles(18);
+    articles = getMockArticles(18, slug);
   }
 
   if (articles.length === 0) {
-    articles = getMockArticles(18);
+    articles = getMockArticles(18, slug);
   }
 
   return (

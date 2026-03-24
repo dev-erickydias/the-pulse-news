@@ -3,6 +3,7 @@ import { HeroArticle } from "@/components/HeroArticle";
 import { ArticleCard } from "@/components/ArticleCard";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CategoryPill } from "@/components/CategoryPill";
+import { SubscribeForm } from "@/components/SubscribeForm";
 import { CATEGORIES } from "@/types/news";
 
 export const revalidate = 600;
@@ -97,26 +98,7 @@ export default async function HomePage() {
 
       {/* Newsletter — newspaper classified ad style */}
       <section className="max-w-[1200px] mx-auto px-4 py-8">
-        <div className="border-2 border-ink p-8 md:p-12 text-center bg-cream/50">
-          <h2 className="font-heading text-2xl md:text-3xl font-black tracking-tight mb-2 uppercase">
-            Subscribe to Our Edition
-          </h2>
-          <div className="w-16 h-[2px] bg-ink mx-auto mb-4" />
-          <p className="font-serif text-[13px] text-muted mb-6 max-w-md mx-auto leading-relaxed">
-            Receive the morning&apos;s top headlines delivered directly to your inbox.
-            Quality journalism, every day.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="your@email.com"
-              className="flex-1 px-4 py-2.5 border border-ink/30 bg-paper text-sm font-serif placeholder:text-muted/40 focus:outline-none focus:border-ink transition-colors"
-            />
-            <button className="px-6 py-2.5 bg-ink text-paper text-[11px] font-serif font-bold tracking-[0.15em] uppercase hover:bg-accent transition-colors duration-200">
-              Subscribe
-            </button>
-          </div>
-        </div>
+        <SubscribeForm />
       </section>
     </div>
   );
